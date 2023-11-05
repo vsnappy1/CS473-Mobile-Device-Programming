@@ -13,8 +13,8 @@
         android:theme="@style/Theme.MDP"
         tools:targetApi="31">
         <activity
-            android:name=".TableActivity"
-            android:exported="true" >
+            android:name=".WalmartLoginPage"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,10 +22,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".TableActivity"
             android:exported="true">
-
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"></activity>
     </application>
 
 </manifest>
