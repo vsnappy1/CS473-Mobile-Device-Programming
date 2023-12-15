@@ -77,4 +77,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2'
     // Integration with LiveData
     implementation 'androidx.compose.runtime:runtime-livedata'
+
+    // Data store
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
 }
