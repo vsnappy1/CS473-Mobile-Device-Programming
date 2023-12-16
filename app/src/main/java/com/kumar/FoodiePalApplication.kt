@@ -31,4 +31,8 @@ class FoodiePalApplication : Application() {
             Log.d(TAG, "saveInDataStore: ")
         }
     }
+
+    fun getDataStoreInstance(): DataStore<Preferences> {
+        return dataStore
+    }
 }
