@@ -19,6 +19,7 @@ class RecipeViewModel: ViewModel() {
 
     fun addRecipe(recipe: Recipe){
         recipes.add(recipe)
+        _uiState.value = _uiState.value?.copy(recipes = listOf()) // list was not refreshing properly, so I added this
         _uiState.value = _uiState.value?.copy(recipes = recipes)
     }
 }
