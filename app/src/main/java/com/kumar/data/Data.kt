@@ -1,6 +1,7 @@
 package com.kumar.data
 
 import com.kumar.enums.Day
+import com.kumar.model.AboutMe
 import com.kumar.model.Blog
 import com.kumar.model.MealPlan
 import com.kumar.model.MealPlanOnDay
@@ -63,44 +64,47 @@ val mealPlans = listOf(
             breakfastRecipe = recipes[0]
         )
     ),
-     MealPlanOnDay(
+    MealPlanOnDay(
         day = Day.TUESDAY,
         mealPlan = MealPlan()
     ),
-     MealPlanOnDay(
+    MealPlanOnDay(
         day = Day.WEDNESDAY,
         mealPlan = MealPlan()
     ),
-     MealPlanOnDay(
+    MealPlanOnDay(
         day = Day.THURSDAY,
         mealPlan = MealPlan()
     ),
-     MealPlanOnDay(
+    MealPlanOnDay(
         day = Day.FRIDAY,
         mealPlan = MealPlan()
     ),
-     MealPlanOnDay(
+    MealPlanOnDay(
         day = Day.SATURDAY,
         mealPlan = MealPlan()
     ),
-     MealPlanOnDay(
+    MealPlanOnDay(
         day = Day.SUNDAY,
         mealPlan = MealPlan()
     )
 )
 
 val blogs = mutableListOf(
-    Blog(username = "Emily",
+    Blog(
+        username = "Emily",
         title = "My favorite Christmas Eve tradition",
         description = "I remember the first time I ever had Bûche de Noël, a flourless chocolate cake filled with a chocolate whipped cream and topped with a rich buttercream, all rolled together to resemble a log. It was Christmas Eve at our next door neighbor's home, and I'd never seen a more gorgeous dessert. That was nearly twenty years ago and for the past decade or so, I've been making it myself as part of our annual tradition during the holidays. It's a beast of a recipe, comprised of so many steps it'll make you dizzy, but none of them are necessarily difficult and I promise it's SO worth the effort. If you're up for a challenge, set aside the morning, crank up the Christmas carols, and make a yule log - just be prepared to have your family request that it become an annual tradition.",
         createOn = LocalDate.of(2022, Month.DECEMBER, 12)
     ),
-      Blog(username = "Emily",
+    Blog(
+        username = "Emily",
         title = "Leaning into my favorite time of year",
         description = "I know for a lot of people, winter is when they can find themselves feeling down, desperate for warm weather and a little sun. But as we *finally* start to enter cooler temperatures in L.A., I've been emerging from what I can only call a \"summer slump.\" I've always favored fall and winter, but hadn't realized how impacted I am when nothing but triple digits line the forecast. Luckily there's been a slight shift lately and now that I'm home after three back-to-back trips to the South (North Carolina, Georgia, and Louisiana), I'm feeling excited and ready to plan alllll the things with my friends and family. Here are a few of my favorite moments from the last few weeks.",
         createOn = LocalDate.of(2023, Month.OCTOBER, 30)
     ),
-    Blog(username = "Nicole Prince",
+    Blog(
+        username = "Nicole Prince",
         title = "In remembrance of Leo",
         description = "Trigger warning: This piece includes the author's descriptions of experiencing a miscarriage.\n" +
                 "\n" +
@@ -111,7 +115,8 @@ val blogs = mutableListOf(
                 "We stuffed ourselves with the fluffiest donuts from a hole-in-the-wall Italian bakery (the best kind) and slowly made our way back home, stopping on a tiny street so Clay could set up his toy cars and reimagine his most recent construction scene. ",
         createOn = LocalDate.of(2021, Month.FEBRUARY, 24)
     ),
-      Blog(username = "Geoffrey",
+    Blog(
+        username = "Geoffrey",
         title = "G's Father's Day Gift Guide",
         description = "Omorpho Weighted Vest (\$299): This micro loaded weight vest adds 10lbs of weight and increases the intensity of any workout, while allowing for easy movement during any training activity.\n" +
                 "\n" +
@@ -119,6 +124,22 @@ val blogs = mutableListOf(
                 "\n" +
                 "ASICS Quantum 360 Sneakers (\$240): Whether you’re a dad, someone who loves trail running, or somewhere in between, these reimagined Gel Quantam Asics, designed in collaboration with London-based Kiko Kostadinov, will provide a stylish upgrade to your daily regimen. In addition to their comfort and training pedigree, the unique colorways set them apart from basic Asics.",
         createOn = LocalDate.of(2023, Month.JUNE, 14)
-    ),
+    )
+)
 
+val aboutMeList = mutableListOf(
+    AboutMe(
+        title = "Android Developer",
+        description = "Hi there!!, this is Vishal Kumar an Android Developer with 5+ years on experience in Android Development"
+    ),
+    AboutMe(
+        title = "Favorite Recipes",
+        description = "1. Chicken Karahi\n" +
+                "2. Biryani\n" +
+                "3. Aloo Paratha"
+    ),
+    AboutMe(
+        title = "Food Philosophy",
+        description = "I prefer fresh food more than frozen one, I cook my meal with fresh vegetables"
+    )
 )
