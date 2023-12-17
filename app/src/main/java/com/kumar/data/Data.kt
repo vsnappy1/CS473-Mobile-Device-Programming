@@ -1,10 +1,13 @@
 package com.kumar.data
 
 import com.kumar.enums.Day
+import com.kumar.model.Blog
 import com.kumar.model.MealPlan
 import com.kumar.model.MealPlanOnDay
 import com.kumar.model.Recipe
 import com.kumar.model.User
+import java.time.LocalDate
+import java.time.Month
 
 val users = mutableListOf<User>()
 
@@ -83,6 +86,39 @@ val mealPlans = listOf(
      MealPlanOnDay(
         day = Day.SUNDAY,
         mealPlan = MealPlan()
+    )
+)
+
+val blogs = mutableListOf(
+    Blog(username = "Emily",
+        title = "My favorite Christmas Eve tradition",
+        description = "I remember the first time I ever had Bûche de Noël, a flourless chocolate cake filled with a chocolate whipped cream and topped with a rich buttercream, all rolled together to resemble a log. It was Christmas Eve at our next door neighbor's home, and I'd never seen a more gorgeous dessert. That was nearly twenty years ago and for the past decade or so, I've been making it myself as part of our annual tradition during the holidays. It's a beast of a recipe, comprised of so many steps it'll make you dizzy, but none of them are necessarily difficult and I promise it's SO worth the effort. If you're up for a challenge, set aside the morning, crank up the Christmas carols, and make a yule log - just be prepared to have your family request that it become an annual tradition.",
+        createOn = LocalDate.of(2022, Month.DECEMBER, 12)
+    ),
+      Blog(username = "Emily",
+        title = "Leaning into my favorite time of year",
+        description = "I know for a lot of people, winter is when they can find themselves feeling down, desperate for warm weather and a little sun. But as we *finally* start to enter cooler temperatures in L.A., I've been emerging from what I can only call a \"summer slump.\" I've always favored fall and winter, but hadn't realized how impacted I am when nothing but triple digits line the forecast. Luckily there's been a slight shift lately and now that I'm home after three back-to-back trips to the South (North Carolina, Georgia, and Louisiana), I'm feeling excited and ready to plan alllll the things with my friends and family. Here are a few of my favorite moments from the last few weeks.",
+        createOn = LocalDate.of(2023, Month.OCTOBER, 30)
+    ),
+    Blog(username = "Nicole Prince",
+        title = "In remembrance of Leo",
+        description = "Trigger warning: This piece includes the author's descriptions of experiencing a miscarriage.\n" +
+                "\n" +
+                "I was really dreading Monday. \n" +
+                "\n" +
+                "We’d had the most perfect weekend; it was early May, 75 degrees in Philadelphia, and our Sunday was wide open. I was craving donuts, which I attributed to the babe growing in my belly, so my husband, toddler, and I set off in pursuit of a treat. I’m not known for my sense of direction and, true to form, I miscalculated the bakery’s location—a 15-minute walk turned into 45 minutes. But it didn’t matter—I had beautiful weather, a baby coming in the fall, and my boys, Tim and Clay. \n" +
+                "\n" +
+                "We stuffed ourselves with the fluffiest donuts from a hole-in-the-wall Italian bakery (the best kind) and slowly made our way back home, stopping on a tiny street so Clay could set up his toy cars and reimagine his most recent construction scene. ",
+        createOn = LocalDate.of(2021, Month.FEBRUARY, 24)
+    ),
+      Blog(username = "Geoffrey",
+        title = "G's Father's Day Gift Guide",
+        description = "Omorpho Weighted Vest (\$299): This micro loaded weight vest adds 10lbs of weight and increases the intensity of any workout, while allowing for easy movement during any training activity.\n" +
+                "\n" +
+                "Raicilla (\$73): This is the lesser known cousin of tequila and mezcal, but it’s slowly emerged as my go-to spirit for making cocktails. The history of raicilla dates back centuries and its distribution and production have a fun backstory, but what makes it stand apart from Tequila and Mezcal is the distillation process and unique flavor profile created from similar agave plants. If you haven’t tried it, this bottle is a great place to start.\n" +
+                "\n" +
+                "ASICS Quantum 360 Sneakers (\$240): Whether you’re a dad, someone who loves trail running, or somewhere in between, these reimagined Gel Quantam Asics, designed in collaboration with London-based Kiko Kostadinov, will provide a stylish upgrade to your daily regimen. In addition to their comfort and training pedigree, the unique colorways set them apart from basic Asics.",
+        createOn = LocalDate.of(2023, Month.JUNE, 14)
     ),
 
 )

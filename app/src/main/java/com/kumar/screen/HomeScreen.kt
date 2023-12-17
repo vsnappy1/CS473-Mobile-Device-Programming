@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun HomeScreen() {
     val titles = listOf("Recipes", " Meal Planner", "Blog", "Contact", "About Me")
-    var tabIndex by remember { mutableIntStateOf(1) }
+    var tabIndex by remember { mutableIntStateOf(2) }
     Scaffold(
         topBar = {
             ScrollableTabRow(
@@ -37,7 +37,7 @@ fun HomeScreen() {
             when(tabIndex){
                 0 -> RecipesScreen()
                 1 -> MealPlannerScreen()
-                2 -> BlogScree()
+                2 -> BlogScreen()
                 3 -> ContactScreen()
                 4 -> AboutMeScreen()
             }
