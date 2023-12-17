@@ -46,7 +46,7 @@ data class LoginScreenUiState(
 )
 
 @Composable
-fun LoginScreen() {
+fun LoginScreen(onUserLoggedIn: () -> Unit) {
     val viewModel: LoginScreenViewModel = viewModel()
     val uiState by viewModel.uiState.observeAsState(LoginScreenUiState())
 
@@ -73,6 +73,9 @@ fun LoginScreen() {
             )
             LoginButton(uiState.loginStatus) { viewModel.login() }
             Text(text = getLoginStatusText(uiState.loginStatus))
+            if (uiState.loginStatus == LoginStatus.SUCCESSFUL) {
+                onUserLoggedIn()
+            }
         }
     }
 }
@@ -154,5 +157,5 @@ fun getLoginStatusText(loginStatus: LoginStatus): String {
 @Preview(showBackground = true)
 @Composable
 fun PreviewLoginScreen() {
-    LoginScreen()
+    LoginScreen(onUserLoggedIn = {})
 }
