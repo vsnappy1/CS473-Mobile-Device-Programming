@@ -16,6 +16,7 @@ import com.kumar.mdp.data.users
 import com.kumar.mdp.model.User
 import com.kumar.mdp.screen.LoginScreen
 import com.kumar.mdp.screen.MainScreen
+import com.kumar.mdp.theme.FoodiePalTheme
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
@@ -27,15 +28,16 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            var isUserLoggedIn by remember { mutableStateOf(false) }
-            if (isUserLoggedIn) {
-                MainScreen()
-            } else {
-                LoginScreen {
-                    isUserLoggedIn = true
+            FoodiePalTheme {
+                var isUserLoggedIn by remember { mutableStateOf(false) }
+                if (isUserLoggedIn) {
+                    MainScreen()
+                } else {
+                    LoginScreen {
+                        isUserLoggedIn = true
+                    }
                 }
             }
-
         }
         getStoreUserAndInitialize()
     }
