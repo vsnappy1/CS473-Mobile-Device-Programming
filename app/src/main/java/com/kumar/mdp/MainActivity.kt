@@ -12,10 +12,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.kumar.FoodiePalApplication
-import com.kumar.data.users
-import com.kumar.model.User
-import com.kumar.screen.LoginScreen
-import com.kumar.screen.MainScreen
+import com.kumar.mdp.data.users
+import com.kumar.mdp.model.User
+import com.kumar.mdp.screen.LoginScreen
+import com.kumar.mdp.screen.MainScreen
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
