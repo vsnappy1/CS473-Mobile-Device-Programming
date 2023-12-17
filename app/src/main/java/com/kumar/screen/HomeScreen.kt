@@ -1,6 +1,7 @@
 package com.kumar.screen
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.ScrollableTabRow
@@ -15,10 +16,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(paddingValues: PaddingValues) {
     val titles = listOf("Recipes", " Meal Planner", "Blog", "Contact", "About Me")
-    var tabIndex by remember { mutableIntStateOf(4) }
+    var tabIndex by remember { mutableIntStateOf(0) }
     Scaffold(
+        modifier = Modifier.padding(paddingValues),
         topBar = {
             ScrollableTabRow(
                 edgePadding = 0.dp,
@@ -32,8 +34,8 @@ fun HomeScreen() {
                 }
             }
         }
-    ) { paddingValues ->
-        Box(modifier = Modifier.padding(paddingValues)){
+    ) {
+        Box(modifier = Modifier.padding(it)){
             when(tabIndex){
                 0 -> RecipesScreen()
                 1 -> MealPlannerScreen()

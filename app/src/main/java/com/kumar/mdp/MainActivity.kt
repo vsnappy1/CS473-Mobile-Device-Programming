@@ -10,7 +10,7 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import com.kumar.FoodiePalApplication
 import com.kumar.data.users
 import com.kumar.model.User
-import com.kumar.screen.HomeScreen
+import com.kumar.screen.MainScreen
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            HomeScreen()
+            MainScreen()
         }
         getStoreUserAndInitialize()
     }
