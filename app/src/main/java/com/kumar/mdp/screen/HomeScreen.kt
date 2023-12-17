@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun HomeScreen(paddingValues: PaddingValues) {
     val titles = listOf("Recipes", " Meal Planner", "Blog", "Contact", "About Me")
-    var tabIndex by remember { mutableIntStateOf(1) }
+    var tabIndex by remember { mutableIntStateOf(0) }
     Scaffold(
         modifier = Modifier.padding(paddingValues),
         topBar = {
