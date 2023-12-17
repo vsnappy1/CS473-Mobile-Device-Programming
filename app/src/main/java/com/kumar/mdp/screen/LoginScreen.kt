@@ -5,6 +5,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -51,18 +52,19 @@ fun LoginScreen(onUserLoggedIn: () -> Unit) {
     val uiState by viewModel.uiState.observeAsState(LoginScreenUiState())
 
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Image(
-            modifier = Modifier
-                .padding(top = 100.dp)
-                .size(75.dp)
-                .align(Alignment.TopCenter),
-            painter = painterResource(id = R.drawable.round_fastfood_24),
-            contentDescription = "Image"
-        )
+
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(4.dp)
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
+            Image(
+                modifier = Modifier
+                    .padding(top = 100.dp)
+                    .size(200.dp),
+                painter = painterResource(id = R.drawable.round_fastfood_24),
+                contentDescription = "Image"
+            )
+            Spacer(modifier = Modifier.height(20.dp))
             UsernameField(
                 value = uiState.username,
                 onValueChange = { viewModel.onUsernameChange(it) },
