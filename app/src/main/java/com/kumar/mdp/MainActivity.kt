@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             FoodiePalTheme {
-                var isUserLoggedIn by remember { mutableStateOf(false) }
+                var isUserLoggedIn by remember { mutableStateOf(true) }
                 if (isUserLoggedIn) {
                     MainScreen()
                 } else {

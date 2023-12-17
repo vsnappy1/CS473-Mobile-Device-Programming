@@ -1,5 +1,7 @@
 package com.kumar.mdp.screen
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,12 +19,18 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Divider
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -58,12 +66,15 @@ fun MealPlannerScreen() {
         LazyColumn(
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
-        ){
+        ) {
             item {
                 Spacer(modifier = Modifier.height(10.dp))
             }
-            items(uiState.mealPlans) {
-                DayPlan(mealPlanOnDay = it)
+            items(uiState.mealPlans) { mealPlan ->
+                DayPlan(mealPlanOnDay = mealPlan,
+                    onBreakfastSelect = { viewModel.updateBreakFast(mealPlan.day, it) },
+                    onLunchSelect = { viewModel.updateLunch(mealPlan.day, it) },
+                    onDinnerSelect = { viewModel.updateDinner(mealPlan.day, it) })
             }
             item {
                 Spacer(modifier = Modifier.height(10.dp))
@@ -73,7 +84,12 @@ fun MealPlannerScreen() {
 }
 
 @Composable
-fun DayPlan(mealPlanOnDay: MealPlanOnDay) {
+fun DayPlan(
+    mealPlanOnDay: MealPlanOnDay,
+    onBreakfastSelect: (Recipe) -> Unit,
+    onLunchSelect: (Recipe) -> Unit,
+    onDinnerSelect: (Recipe) -> Unit,
+) {
     Card(
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(
@@ -82,43 +98,67 @@ fun DayPlan(mealPlanOnDay: MealPlanOnDay) {
         elevation = CardDefaults.cardElevation(
             defaultElevation = 5.dp
         )
-    ){
-        Column(modifier = Modifier
-            .padding(16.dp)
-            .fillMaxWidth(),
+    ) {
+        Column(
+            modifier = Modifier
+                .padding(horizontal = 16.dp, vertical = 12.dp)
+                .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
             Text(text = mealPlanOnDay.day.name, style = MaterialTheme.typography.titleMedium)
-            PlanRow(mealPlanOnDay.mealPlan.breakfastRecipe, "Breakfast")
-            PlanRow(mealPlanOnDay.mealPlan.lunchRecipe, "Lunch")
-            PlanRow(mealPlanOnDay.mealPlan.dinnerRecipe, "Dinner")
+            Divider(modifier = Modifier.fillMaxWidth().height(1.dp).background(color = Color.DarkGray))
+            PlanRow(
+                mealPlanOnDay.mealPlan.breakfastRecipe,
+                "Breakfast",
+                onRecipeSelect = onBreakfastSelect
+            )
+            PlanRow(mealPlanOnDay.mealPlan.lunchRecipe, "Lunch", onRecipeSelect = onLunchSelect)
+            PlanRow(mealPlanOnDay.mealPlan.dinnerRecipe, "Dinner", onRecipeSelect = onDinnerSelect)
         }
     }
 
 }
 
 @Composable
-private fun PlanRow(recipe: Recipe?, timeOfDay: String) {
+private fun PlanRow(recipe: Recipe?, timeOfDay: String, onRecipeSelect: (Recipe) -> Unit) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier.fillMaxWidth()
     ) {
+        var isDropDownMenuVisible by remember { mutableStateOf(false) }
+
         Text(text = timeOfDay)
-        if (recipe == null) {
-            Icon(
-                painter = painterResource(id = R.drawable.round_add_24),
-                contentDescription = "Add"
-            )
-        } else {
-            Plan(recipe)
+        Column {
+            if (recipe == null) {
+                Icon(
+                    painter = painterResource(id = R.drawable.round_add_24),
+                    contentDescription = "Add",
+                    modifier = Modifier.clickable { isDropDownMenuVisible = true }
+                )
+            } else {
+                Plan(recipe) { isDropDownMenuVisible = true }
+            }
+            DropdownMenu(
+                expanded = isDropDownMenuVisible,
+                onDismissRequest = { isDropDownMenuVisible = false }) {
+                recipes.forEach {
+                    DropdownMenuItem(text = { Text(text = it.name) }, onClick = {
+                        onRecipeSelect(it)
+                        isDropDownMenuVisible = false
+                    })
+                }
+            }
         }
+
     }
 }
 
 @Composable
-private fun Plan(recipe: Recipe) {
-    Row(verticalAlignment = Alignment.CenterVertically) {
+private fun Plan(recipe: Recipe, onClick: () -> Unit) {
+    Row(verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.clickable { onClick() }) {
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
                 .data(recipe.image)
@@ -146,10 +186,14 @@ private fun Plan(recipe: Recipe) {
 @Preview(showBackground = true)
 @Composable
 fun PreviewDayPlan() {
-    DayPlan(mealPlanOnDay = MealPlanOnDay(
-        Day.MONDAY,
-        MealPlan(breakfastRecipe = recipes[0])
-    )
+    DayPlan(
+        mealPlanOnDay = MealPlanOnDay(
+            Day.MONDAY,
+            MealPlan(breakfastRecipe = recipes[0])
+        ),
+        {},
+        {},
+        {}
     )
 }
 
