@@ -1,11 +1,14 @@
 package com.kumar.data
 
+import com.kumar.enums.Day
+import com.kumar.model.MealPlan
+import com.kumar.model.MealPlanOnDay
 import com.kumar.model.Recipe
 import com.kumar.model.User
 
 val users = mutableListOf<User>()
 
-val recipes = mutableListOf<Recipe>(
+val recipes = mutableListOf(
     Recipe(
         name = "Chef John's Perfect Prime Rib",
         description = "Use my easy \"mathematical method\" for cooking prime rib, and you'll be rewarded with the best prime rib that's perfectly pink and delicious. For the math to work, you must leave the beef out at room temperature for at least 6 hours.",
@@ -48,4 +51,38 @@ val recipes = mutableListOf<Recipe>(
         cookingTime = 455,
         userRatings = 3.8
     ),
+)
+
+val mealPlans = listOf(
+    MealPlanOnDay(
+        day = Day.MONDAY,
+        mealPlan = MealPlan(
+            breakfastRecipe = recipes[0]
+        )
+    ),
+     MealPlanOnDay(
+        day = Day.TUESDAY,
+        mealPlan = MealPlan()
+    ),
+     MealPlanOnDay(
+        day = Day.WEDNESDAY,
+        mealPlan = MealPlan()
+    ),
+     MealPlanOnDay(
+        day = Day.THURSDAY,
+        mealPlan = MealPlan()
+    ),
+     MealPlanOnDay(
+        day = Day.FRIDAY,
+        mealPlan = MealPlan()
+    ),
+     MealPlanOnDay(
+        day = Day.SATURDAY,
+        mealPlan = MealPlan()
+    ),
+     MealPlanOnDay(
+        day = Day.SUNDAY,
+        mealPlan = MealPlan()
+    ),
+
 )
