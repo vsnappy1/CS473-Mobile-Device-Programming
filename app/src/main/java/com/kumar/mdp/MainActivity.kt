@@ -2,14 +2,17 @@ package com.kumar.mdp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.kumar.mdp.databinding.ActivityMainBinding
+import androidx.activity.compose.setContent
+import androidx.navigation.compose.rememberNavController
+import com.kumar.mdp.navigation.NavigationGardening
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding : ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContent {
+            val navHostController = rememberNavController()
+            NavigationGardening(navHostController)
+        }
     }
 }
