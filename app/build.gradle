@@ -104,5 +104,6 @@ dependencies {
     // Jetpack Compose Integration
     implementation "androidx.navigation:navigation-compose:$nav_version"
 
-
+    // Date Picker
+    implementation 'com.github.vsnappy1:ComposeDatePicker:2.2.0'
 }
