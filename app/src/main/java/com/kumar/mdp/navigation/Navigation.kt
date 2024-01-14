@@ -7,11 +7,23 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.kumar.mdp.screen.GardenLogScreen
+import com.kumar.mdp.screen.HomeScreen
 import com.kumar.mdp.screen.PlantDetailScreen
 
 @Composable
-fun NavigationGardening(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = "/garden_log_screen") {
+fun NavigationGardening(navController: NavHostController, onScanPlantClick: () -> Unit) {
+    NavHost(navController = navController, startDestination = "/home") {
+        composable(route = "/home") {
+            HomeScreen(
+                onGardenLogClick = {
+                    navController.navigate(
+                        route = "/garden_log_screen"
+                    )
+                },
+                onPlantCareTipsClick = {},
+                onScanPlantClick = onScanPlantClick
+            )
+        }
         composable(route = "/garden_log_screen") {
             GardenLogScreen() {
                 navController.navigate(
@@ -26,7 +38,7 @@ fun NavigationGardening(navController: NavHostController) {
             })
         ) {
             val plantId = it.arguments?.getInt("plant_id") ?: 0
-            PlantDetailScreen(plantId = plantId, onDelete = {navController.popBackStack()})
+            PlantDetailScreen(plantId = plantId, onDelete = { navController.popBackStack() })
         }
     }
 }

@@ -1,10 +1,13 @@
 package com.kumar.mdp
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
+import android.provider.MediaStore
 import androidx.activity.compose.setContent
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.compose.rememberNavController
 import com.kumar.mdp.navigation.NavigationGardening
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -12,7 +15,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val navHostController = rememberNavController()
-            NavigationGardening(navHostController)
+            NavigationGardening(navHostController, onScanPlantClick = { openCamera() })
+        }
+    }
+
+    private fun openCamera() {
+        // Create an implicit Intent to capture an image
+        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+
+        // Check if there's a camera app to handle the intent
+        if (takePictureIntent.resolveActivity(packageManager) != null) {
+            // Start the camera activity
+            startActivity(takePictureIntent)
         }
     }
 }
