@@ -26,7 +26,7 @@ fun NavigationGardening(navController: NavHostController) {
             })
         ) {
             val plantId = it.arguments?.getInt("plant_id") ?: 0
-            PlantDetailScreen(plantId = plantId)
+            PlantDetailScreen(plantId = plantId, onDelete = {navController.popBackStack()})
         }
     }
 }

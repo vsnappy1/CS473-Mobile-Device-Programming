@@ -25,6 +25,12 @@ class PlantDetailScreenViewModel(database: PlantDatabase, plantId: Int) : ViewMo
             _uiState.value = _uiState.value?.copy(plant = repository.getPlantById(plantId).first())
         }
     }
+
+    fun delete(){
+        viewModelScope.launch {
+            uiState.value?.plant?.let { repository.delete(it) }
+        }
+    }
 }
 
 class PlantDetailScreenViewModelFactory(

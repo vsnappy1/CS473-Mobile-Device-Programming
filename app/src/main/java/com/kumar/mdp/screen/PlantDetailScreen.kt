@@ -4,7 +4,9 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.slideIn
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -13,9 +15,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.CalendarMonth
+import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.Forest
 import androidx.compose.material.icons.rounded.WaterDrop
 import androidx.compose.material.icons.rounded.WifiProtectedSetup
@@ -59,38 +63,73 @@ data class PlantDetailScreenUiState(
 )
 
 @Composable
-fun PlantDetailScreen(plantId: Int) {
+fun PlantDetailScreen(
+    plantId: Int,
+    onDelete: () -> Unit
+) {
 
     val applicationContext = LocalContext.current.applicationContext as MyApplication
     val viewModel: PlantDetailScreenViewModel =
-        viewModel(factory = PlantDetailScreenViewModelFactory(applicationContext.getPlantDatabaseInstance(), plantId))
+        viewModel(
+            factory = PlantDetailScreenViewModelFactory(
+                applicationContext.getPlantDatabaseInstance(),
+                plantId
+            )
+        )
     val uiState by viewModel.uiState.observeAsState(PlantDetailScreenUiState())
-    var isVisible by remember{mutableStateOf(false)}
+    var isVisible by remember { mutableStateOf(false) }
     uiState.plant?.let { plant ->
         Card(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(12.dp),
         ) {
-            AnimatedVisibility(visible = isVisible,
-                enter = slideIn(tween(durationMillis = 1000)) { IntOffset(0, -500) }.plus(fadeIn(tween(durationMillis = 1000)))) {
-                AsyncImage(
-                    model = ImageRequest.Builder(LocalContext.current)
-                        .data(plant.imageUrl)
-                        .crossfade(true)
-                        .build(),
-                    placeholder = rememberVectorPainter(image = Icons.Rounded.WifiProtectedSetup),
-                    error = rememberVectorPainter(image = Icons.Rounded.Forest),
-                    contentDescription = stringResource(R.string.plant_image),
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .padding(4.dp)
-                        .fillMaxWidth()
-                        .height(300.dp)
-                        .clip(RoundedCornerShape(12.dp))
+            AnimatedVisibility(
+                visible = isVisible,
+                enter = slideIn(tween(durationMillis = 1000)) { IntOffset(0, -500) }.plus(
+                    fadeIn(
+                        tween(durationMillis = 1000)
+                    )
                 )
+            ) {
+                Box() {
+                    AsyncImage(
+                        model = ImageRequest.Builder(LocalContext.current)
+                            .data(plant.imageUrl)
+                            .crossfade(true)
+                            .build(),
+                        placeholder = rememberVectorPainter(image = Icons.Rounded.WifiProtectedSetup),
+                        error = rememberVectorPainter(image = Icons.Rounded.Forest),
+                        contentDescription = stringResource(R.string.plant_image),
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .padding(4.dp)
+                            .fillMaxWidth()
+                            .height(300.dp)
+                            .clip(RoundedCornerShape(12.dp))
+                    )
+                    Icon(
+                        modifier = Modifier
+                            .align(Alignment.TopEnd)
+                            .padding(16.dp)
+                            .clip(CircleShape)
+                            .clickable {
+                                viewModel.delete()
+                                onDelete()
+                            },
+                        imageVector = Icons.Rounded.Delete,
+                        contentDescription = "Delete",
+                        tint = Color.Red
+                    )
+                }
             }
-            AnimatedVisibility(visible = isVisible,
-                enter = slideIn(tween(durationMillis = 1000)) { IntOffset(1000, 0) }.plus(fadeIn(tween(durationMillis = 1000)))) {
+            AnimatedVisibility(
+                visible = isVisible,
+                enter = slideIn(tween(durationMillis = 1000)) { IntOffset(1000, 0) }.plus(
+                    fadeIn(
+                        tween(durationMillis = 1000)
+                    )
+                )
+            ) {
                 Column(
                     verticalArrangement = Arrangement.spacedBy(4.dp),
                     modifier = Modifier
@@ -134,14 +173,17 @@ fun PlantDetailScreen(plantId: Int) {
                             tint = Color.DarkGray
                         )
                         Spacer(modifier = Modifier.width(4.dp))
-                        Text(text = plant.plantingDate, style = MaterialTheme.typography.titleMedium)
+                        Text(
+                            text = plant.plantingDate,
+                            style = MaterialTheme.typography.titleMedium
+                        )
                     }
                 }
             }
         }
     }
 
-    LaunchedEffect(key1 = Unit ){
+    LaunchedEffect(key1 = Unit) {
         delay(500)
         isVisible = true
     }
@@ -150,6 +192,6 @@ fun PlantDetailScreen(plantId: Int) {
 
 @Preview
 @Composable
-fun PreviewPlantDetailScreen(){
-    PlantDetailScreen(plantId = 1)
+fun PreviewPlantDetailScreen() {
+    PlantDetailScreen(plantId = 1, {})
 }
