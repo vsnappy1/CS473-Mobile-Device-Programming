@@ -51,19 +51,22 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.example.compose.green
 import com.kumar.mdp.MyApplication
 import com.kumar.mdp.R
-import com.kumar.mdp.data.plant
+import com.kumar.mdp.data.plants
 import com.kumar.mdp.model.Plant
 import com.kumar.mdp.viewmodel.GardenLogScreenViewModel
 import com.kumar.mdp.viewmodel.GardenLogScreenViewModelFactory
 import com.vsnappy1.datepicker.DatePicker
+import com.vsnappy1.theme.blue
 import java.time.LocalDate
 
 data class GardenLogScreenUiState(
@@ -79,13 +82,21 @@ fun GardenLogScreen(onItemClick: (Int) -> Unit) {
     val uiState by viewModel.uiState.observeAsState(GardenLogScreenUiState())
     var isAddPlantDialogVisible by remember { mutableStateOf(false) }
 
-    Box(modifier = Modifier.fillMaxSize()) {
-        LazyColumn(
-            modifier = Modifier.padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            items(uiState.plants) {
-                GardenLogItem(plant = it) { onItemClick(it.id) }
+    Box(modifier = Modifier.fillMaxSize().padding(16.dp)) {
+        Column {
+            Text(
+                text = "Garden Log",
+                modifier = Modifier.fillMaxWidth(),
+                style = MaterialTheme.typography.headlineLarge,
+                textAlign = TextAlign.Center
+            )
+            Spacer(modifier = Modifier.height(20.dp))
+            LazyColumn(
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                items(uiState.plants) {
+                    GardenLogItem(plant = it) { onItemClick(it.id) }
+                }
             }
         }
 
@@ -153,7 +164,7 @@ fun GardenLogItem(plant: Plant, onItemClick: () -> Unit) {
                     Icon(
                         imageVector = Icons.Rounded.Forest,
                         contentDescription = "Forest",
-                        tint = Color.Green
+                        tint = green
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
@@ -166,7 +177,7 @@ fun GardenLogItem(plant: Plant, onItemClick: () -> Unit) {
                     Icon(
                         imageVector = Icons.Rounded.WaterDrop,
                         contentDescription = "Water Drop",
-                        tint = Color.Blue
+                        tint = blue
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
@@ -293,5 +304,5 @@ fun AddPlantDialog(
 @Preview
 @Composable
 fun PreviewGardenLogItem() {
-    GardenLogItem(plant) {}
+    GardenLogItem(plants[0]) {}
 }

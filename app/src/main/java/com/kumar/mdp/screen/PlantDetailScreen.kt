@@ -4,6 +4,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.slideIn
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -23,7 +24,6 @@ import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.Forest
 import androidx.compose.material.icons.rounded.WaterDrop
 import androidx.compose.material.icons.rounded.WifiProtectedSetup
-import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -48,11 +48,14 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.example.compose.green
 import com.kumar.mdp.MyApplication
 import com.kumar.mdp.R
 import com.kumar.mdp.model.Plant
 import com.kumar.mdp.viewmodel.PlantDetailScreenViewModel
 import com.kumar.mdp.viewmodel.PlantDetailScreenViewModelFactory
+import com.vsnappy1.theme.blue
+import com.vsnappy1.theme.red
 import kotlinx.coroutines.delay
 
 data class PlantDetailScreenUiState(
@@ -79,9 +82,8 @@ fun PlantDetailScreen(
     val uiState by viewModel.uiState.observeAsState(PlantDetailScreenUiState())
     var isVisible by remember { mutableStateOf(false) }
     uiState.plant?.let { plant ->
-        Card(
-            modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(12.dp),
+        Column(
+            modifier = Modifier.fillMaxWidth()
         ) {
             AnimatedVisibility(
                 visible = isVisible,
@@ -109,16 +111,17 @@ fun PlantDetailScreen(
                     )
                     Icon(
                         modifier = Modifier
-                            .align(Alignment.TopEnd)
+                            .align(Alignment.BottomEnd)
                             .padding(16.dp)
                             .clip(CircleShape)
+                            .background(Color.Gray.copy(alpha = 0.5f))
                             .clickable {
                                 viewModel.delete()
                                 onDelete()
                             },
                         imageVector = Icons.Rounded.Delete,
                         contentDescription = "Delete",
-                        tint = Color.Red
+                        tint = red
                     )
                 }
             }
@@ -145,7 +148,7 @@ fun PlantDetailScreen(
                         Icon(
                             imageVector = Icons.Rounded.Forest,
                             contentDescription = "Forest",
-                            tint = Color.Green
+                            tint = green
                         )
                         Spacer(modifier = Modifier.width(4.dp))
                         Text(
@@ -158,7 +161,7 @@ fun PlantDetailScreen(
                         Icon(
                             imageVector = Icons.Rounded.WaterDrop,
                             contentDescription = "Water Drop",
-                            tint = Color.Blue
+                            tint = blue
                         )
                         Spacer(modifier = Modifier.width(4.dp))
                         Text(

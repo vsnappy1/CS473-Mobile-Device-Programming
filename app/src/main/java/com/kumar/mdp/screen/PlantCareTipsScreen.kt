@@ -29,7 +29,7 @@ fun PlantCareTipsScreen() {
             style = MaterialTheme.typography.headlineLarge,
             textAlign = TextAlign.Center
         )
-        Spacer(modifier = Modifier.height(23.dp))
+        Spacer(modifier = Modifier.height(20.dp))
         LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             items(plantCareTips) {
                 TipItem(plantCareTip = it)

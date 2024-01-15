@@ -6,6 +6,7 @@ import android.provider.MediaStore
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.compose.rememberNavController
+import com.example.compose.AppTheme
 import com.kumar.mdp.navigation.NavigationGardening
 
 
@@ -14,8 +15,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val navHostController = rememberNavController()
-            NavigationGardening(navHostController, onScanPlantClick = { openCamera() })
+            AppTheme {
+                val navHostController = rememberNavController()
+                NavigationGardening(navHostController, onScanPlantClick = { openCamera() })
+            }
         }
     }
 
