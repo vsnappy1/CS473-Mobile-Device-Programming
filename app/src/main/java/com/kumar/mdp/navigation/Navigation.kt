@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.kumar.mdp.screen.GardenLogScreen
 import com.kumar.mdp.screen.HomeScreen
+import com.kumar.mdp.screen.PlantCareTipsScreen
 import com.kumar.mdp.screen.PlantDetailScreen
 
 @Composable
@@ -20,7 +21,11 @@ fun NavigationGardening(navController: NavHostController, onScanPlantClick: () -
                         route = "/garden_log_screen"
                     )
                 },
-                onPlantCareTipsClick = {},
+                onPlantCareTipsClick = {
+                    navController.navigate(
+                        route = "/plant_care_tip"
+                    )
+                },
                 onScanPlantClick = onScanPlantClick
             )
         }
@@ -30,6 +35,9 @@ fun NavigationGardening(navController: NavHostController, onScanPlantClick: () -
                     route = "/plant_detail/${it}"
                 )
             }
+        }
+        composable(route = "/plant_care_tip") {
+            PlantCareTipsScreen()
         }
         composable(
             route = "/plant_detail/{plant_id}",
